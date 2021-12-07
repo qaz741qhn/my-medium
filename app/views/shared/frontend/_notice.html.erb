@@ -1,0 +1,9 @@
+<% if notice %>
+  <div class="notification is-primary">
+    <%= notice %>
+  </div>
+<% elsif alert %>
+  <div class="notification is-danger">
+    <%= alert %>
+  </div>
+<% end %>

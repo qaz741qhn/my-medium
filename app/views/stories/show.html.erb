@@ -1,7 +1,10 @@
 <h1 class="title"><%= @story.title %></h1>
+<h5 class="title is-5">撰寫時間：<%= @story.created_at.to_date %></h5>
 <section class="section is-medium">
-  <h2 class="subtitle">
+  <p class="subtitle white-space">
     <%= @story.content %>
-  </h1>
+  </p>
 </section>
+<p class="subtitle"><%= link_to '編輯', edit_story_path(@story) %></p>
+<p class="subtitle"><%= link_to '刪除', story_path(@story), method: :delete, data: { confirm: "確定刪除？" } %></p>
 <p class="subtitle"><%= link_to '返回故事列表', stories_path %></p>

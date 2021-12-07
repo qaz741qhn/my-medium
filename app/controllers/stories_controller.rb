@@ -30,14 +30,17 @@ class StoriesController < ApplicationController
 
   def update
     if @story.update(story_params)
+      flash[:notice] = "編輯成功"
       redirect_to story_path(@story)
     else
+      flash[:alert] = "編輯失敗"
       render "edit"
     end
   end
 
   def destroy
     @story.destroy
+    flash[:alert] = "已刪除故事"
     redirect_to stories_path
   end
 
