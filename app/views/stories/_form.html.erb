@@ -1,0 +1,14 @@
+<%= form_with(model: @story, local: true) do |f| %>
+  <div class="field">
+    <%= f.label :title, '標題' %><br/>
+    <%= f.text_field :title, placeholder: "Story title", class: "input" %>
+  </div>
+  <div class="field">
+    <%= f.label :content, '內文' %><br/>
+    <%= f.text_area :content, placeholder: "Story content", class: "textarea", rows: "10" %>
+  </div>
+  <div class="field">
+    <%= f.submit '儲存草稿', class: "button is-light" %>
+    <%= f.submit '發布文章', class: "button is-primary" %>
+  </div>
+<% end %>
