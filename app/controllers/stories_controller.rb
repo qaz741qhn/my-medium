@@ -1,7 +1,7 @@
 class StoriesController < ApplicationController
 
-  before_action :authenticate_user!, only: [:new, :index]
-  before_action :set_story, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!, only: [:new, :index, :show, :edit]
+  before_action :set_story, :story_not_found, only: [:show, :edit, :update, :destroy]
 
   def index
     @stories = current_user.stories.order(created_at: :desc)
@@ -13,9 +13,16 @@ class StoriesController < ApplicationController
 
   def create
     @story = current_user.stories.new(story_params)
+    @story.publish! if params[:publish]
+
     if @story.save
-      flash[:notice] = "新增成功"
-      redirect_to stories_path
+      if params[:publish]
+        flash[:notice] = "已成功發布故事"
+        redirect_to stories_path
+      else
+        flash[:notice] = "故事已儲存"
+        redirect_to edit_story_path(@story)
+      end
     else
       flash[:alert] = "新增失敗"
       render "new"
@@ -30,11 +37,20 @@ class StoriesController < ApplicationController
 
   def update
     if @story.update(story_params)
-      flash[:notice] = "編輯成功"
-      redirect_to story_path(@story)
+      if params[:publish]
+        @story.publish!
+        flash[:notice] = "故事已發佈"
+        redirect_to stories_path
+      elsif params[:unpublish]
+        @story.unpublish!
+        flash[:notice] = "故事已下架"
+        redirect_to stories_path
+      else
+        flash[:notice] = "故事已儲存"
+        redirect_to edit_story_path(@story)
+      end
     else
-      flash[:alert] = "編輯失敗"
-      render "edit"
+      render 'edit'
     end
   end
 
@@ -51,6 +67,16 @@ class StoriesController < ApplicationController
   end
 
   def set_story
-    @story = current_user.stories.find_by(id: params[:id])
+    @story = current_user.stories.friendly.find(params[:id])
+  end
+
+  def story_not_found
+    if current_user
+      if @story.nil?
+        render file: Rails.root.join("public/404.html"), layout: false, status: 404
+      end
+    else
+      redirect_to new_user_session_path
+    end
   end
 end

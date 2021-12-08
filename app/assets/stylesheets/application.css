@@ -14,3 +14,20 @@
  *= require_self
  *= require bulma/bulma.css
  */
+
+.white-space {
+  white-space: pre-wrap;
+}
+
+.center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.vertical-center {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

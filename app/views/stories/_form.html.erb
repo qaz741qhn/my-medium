@@ -8,7 +8,9 @@
     <%= f.text_area :content, placeholder: "Story content", class: "textarea", rows: "10" %>
   </div>
   <div class="field">
-    <%= f.submit '儲存草稿', class: "button is-light" %>
-    <%= f.submit '發布文章', class: "button is-primary" %>
+    <%= f.submit '儲存草稿', name: 'save_as_draft', class: "button is-light" %>
+    <%= f.submit '發布文章', name: 'publish', class: "button is-primary" if @story.may_publish? %>
+    <%= f.submit '下架文章', name: 'unpublish', class: "button is-danger" if @story.may_unpublish? %>
+    <%= link_to '取消並返回', stories_path, class: "button is-light" %>
   </div>
 <% end %>

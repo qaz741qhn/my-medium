@@ -1,0 +1,10 @@
+<% if obj.errors.any? %>
+  <div class="notification is-danger">
+    <button class="delete"></button>
+      <ul>
+          <% obj.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+          <% end %>
+      </ul>
+  </div>
+<% end %>
