@@ -8,5 +8,6 @@ Rails.application.routes.draw do
   get '@:username/:story_id', to: 'pages#show', as: 'story_page'
   get '@:username', to: 'pages#user', as: 'user_page'
 
+  get '/demo', to: 'pages#demo'
   root 'pages#index'
 end
