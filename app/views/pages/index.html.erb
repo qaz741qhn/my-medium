@@ -76,7 +76,7 @@
 <section class="columns">
   <!-- article list -->
   <section class="column is-two-thirds">
-    <% @stories.each do |story| %>
+    <% @stories.limit(5).each do |story| %>
       <article class="media">
         <div class="media-content">
           <h2 class="title is-4"><%= link_to story.title, story_page_path(story.user.username, story), class: "has-text-grey-dark" %></h2>
@@ -86,7 +86,7 @@
           </footer>
         </div>
         <figure class="media-right">
-          <img src="https://fakeimg.pl/150x150/">
+          <%= image_tag story.cover_image.variant(resize_to_limit: [150, 150]) if story.cover_image.attached? %>
         </figure>
       </article>
     <% end %>

@@ -1,5 +1,12 @@
 <%= form_with(model: @story, local: true) do |f| %>
   <div class="field">
+    <%= image_tag @story.cover_image.variant(resize_to_limit: [300, 300]), class: "cover-image" if @story.cover_image.attached? %>
+    <%= f.label :cover_image, '封面照' %><br />
+    <div class="control">
+      <%= f.file_field :cover_image %>
+    </div>
+  </div>
+  <div class="field">
     <%= f.label :title, '標題' %><br/>
     <%= f.text_field :title, placeholder: "Story title", class: "input" %>
   </div>
