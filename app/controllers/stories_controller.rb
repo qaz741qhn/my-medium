@@ -1,7 +1,7 @@
 class StoriesController < ApplicationController
 
-  before_action :authenticate_user!, only: [:new, :index, :show, :edit]
-  before_action :set_story, :story_not_found, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!, only: [:new, :index, :edit]
+  before_action :set_story, :story_not_found, only: [:edit, :update, :destroy]
 
   def index
     @stories = current_user.stories.order(created_at: :desc)
@@ -27,9 +27,6 @@ class StoriesController < ApplicationController
       flash[:alert] = "新增失敗"
       render "new"
     end
-  end
-
-  def show
   end
 
   def edit
