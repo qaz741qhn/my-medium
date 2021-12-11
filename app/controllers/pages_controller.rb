@@ -7,6 +7,8 @@ class PagesController < ApplicationController
   end
 
   def show
+    @comment = @story.comments.new
+    @comments = @story.comments.order(created_at: :desc)
   end
 
   def user
