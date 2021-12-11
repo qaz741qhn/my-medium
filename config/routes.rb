@@ -2,6 +2,14 @@ Rails.application.routes.draw do
   devise_for :users, controllers: {
     registrations: 'users/registrations'
   }
+
+  # /users/:id/follow 空陣列意思即為不使用devise的任何一個路徑
+  resources :users, only: [] do
+    member do
+      post :follow
+    end
+  end
+
   resources :stories do
     member do
       post :clap
