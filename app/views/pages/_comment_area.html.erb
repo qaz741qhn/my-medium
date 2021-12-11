@@ -1,6 +1,6 @@
 <section class="comment-editor">
   <% if user_signed_in? %>
-    <%= form_with(model: @comment, url: story_comments_path(story), remote: true) do |f| %>
+    <%= form_with(model: @comment, url: story_comments_path(story), class: 'comment_form', local: false) do |f| %>
       <div class="field">
         <%= f.text_area :content, placeholder: "輸入留言", class: "textarea is-small", rows: 8, cols: 40 %>
       </div>
@@ -11,3 +11,5 @@
     <%= link_to "會員註冊", new_user_registration_path, class: "button is-info" %>
   <% end %>
 </section>
+
+<%# local: false的相關說明 => https://guides.rubyonrails.org/working_with_javascript_in_rails.html#remote-elements %>

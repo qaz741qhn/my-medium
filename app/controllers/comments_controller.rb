@@ -7,10 +7,8 @@ class CommentsController < ApplicationController
     @comment = @story.comments.new(comment_params)
     @comment.user = current_user
 
-    if @comment.save
-      flash[:notice] = "Success"
-    else
-      flash[:alert] = "Failed"
+    unless @comment.save
+      render js: "alert('請輸入留言')"
     end
   end
 

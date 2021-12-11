@@ -14,3 +14,4 @@ ActiveStorage.start()
 
 import "controllers"
 import "bulma"
+import '@fortawesome/fontawesome-free/css/all.min.css'
