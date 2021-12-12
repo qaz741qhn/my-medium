@@ -5,10 +5,21 @@ class User < ApplicationRecord
           :recoverable, :rememberable, :validatable
   validates :username, presence: true, uniqueness: true
 
+  enum role: {
+    user: 0,
+    vip_user: 1,
+    platinum_user: 2,
+    admin: 3
+  }
+
   has_many :stories
   has_one_attached :avatar
   has_many :follows
   has_many :bookmarks
+
+  def paid_user?
+    vip_user? || platinum_user?
+  end
 
   def follow?(user)
     follows.exists?(following: user)

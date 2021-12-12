@@ -1,4 +1,4 @@
-<%= form_with(model: @story, local: true) do |f| %>
+<%= form_with(model: @story, local: true, html: {class: "story-editor"}) do |f| %>
   <div class="field">
     <%= image_tag @story.cover_image.variant(resize_to_limit: [300, 300]), class: "cover-image" if @story.cover_image.attached? %>
     <%= f.label :cover_image, '封面照' %><br />
@@ -15,9 +15,15 @@
     <%= f.text_area :content, placeholder: "Story content", class: "textarea", rows: "10" %>
   </div>
   <div class="field">
-    <%= f.submit '儲存草稿', name: 'save_as_draft', class: "button is-light" %>
+    <% if @story.may_publish? %>
+      <%= f.submit '儲存草稿', name: 'save_as_draft', class: "button is-light" %>
+    <% else %>
+      <%= f.submit '更新文章', name: 'save_as_draft', class: "button is-primary" %>
+    <% end %>
     <%= f.submit '發布文章', name: 'publish', class: "button is-primary" if @story.may_publish? %>
     <%= f.submit '下架文章', name: 'unpublish', class: "button is-danger" if @story.may_unpublish? %>
     <%= link_to '取消並返回', stories_path, class: "button is-light" %>
   </div>
 <% end %>
+
+<%= javascript_pack_tag 'editor' %>

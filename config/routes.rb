@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   }
 
   namespace :api do
+    post :upload_image, to: 'utils#upload_image'
     # /users/:id/follow 空陣列意思即為不使用devise的任何一個路徑
     resources :users, only: [] do
       member do
@@ -18,6 +19,14 @@ Rails.application.routes.draw do
       end
     end
 
+  end
+
+  resources :users, only:[] do
+    collection do
+      get :pricing
+      get :payment
+      post :pay
+    end
   end
 
   resources :stories do

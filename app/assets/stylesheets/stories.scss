@@ -1,7 +1,13 @@
+@import './editor.scss';
+
 form {
   img.cover-image {
     display: block;
   }
+}
+
+form.story-editor {
+  margin-bottom: 2em;
 }
 
 .story-content {
