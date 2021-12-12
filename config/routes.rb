@@ -14,8 +14,10 @@ Rails.application.routes.draw do
     resources :stories do
       member do
         post :clap
+        post :bookmark
       end
     end
+
   end
 
   resources :stories do

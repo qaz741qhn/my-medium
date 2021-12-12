@@ -1,9 +1,20 @@
 class Api::StoriesController < Api::BaseController
 
+  before_action :set_story
+
   def clap
-    story = Story.friendly.find(params[:id])
-    story.increment!(:clap)
-    render json: { status: story.clap }
+    @story.increment!(:clap)
+    render json: { status: @story.clap }
+  end
+
+  def bookmark
+    render json: { status: current_user.bookmark!(@story) }
+  end
+
+  private
+
+  def set_story
+    @story = Story.friendly.find(params[:id])
   end
 
 end
