@@ -3,19 +3,25 @@ Rails.application.routes.draw do
     registrations: 'users/registrations'
   }
 
-  # /users/:id/follow 空陣列意思即為不使用devise的任何一個路徑
-  resources :users, only: [] do
-    member do
-      post :follow
+  namespace :api do
+    # /users/:id/follow 空陣列意思即為不使用devise的任何一個路徑
+    resources :users, only: [] do
+      member do
+        post :follow
+      end
+    end
+
+    resources :stories do
+      member do
+        post :clap
+      end
     end
   end
 
   resources :stories do
-    member do
-      post :clap
-    end
     resources :comments, only: [:create]
   end
+
 
   #設定客製化網址
   get '@:username/:story_id', to: 'pages#show', as: 'story_page'
